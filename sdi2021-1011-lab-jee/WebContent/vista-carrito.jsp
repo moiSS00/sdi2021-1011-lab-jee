@@ -22,10 +22,11 @@
 		<ul>
 			<c:forEach var="par" items="${paresCarrito}">
 				<tr>
-					<li>${par.key}- ${par.value}</li>
+					<li>${par.key}- ${par.value}- <a href="borrarProducto?producto=<c:out	value="${par.key}"/>">Borra unidad del producto</a></li>
 				</tr>
 			</c:forEach>
 		</ul>
+		<a href="index.jsp">Volver a la tienda</a>
 	</div>
 </body>
 </html>
