@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uniovi.entities.Teacher;
-import com.uniovi.services.TeacherServices;
+import com.uniovi.services.TeachersServices;
 
 @RestController
-public class TeacherController {
+public class TeachersController {
 	
 	@Autowired // Inyectar el servicio
-	private TeacherServices teacherService;
+	private TeachersServices teacherService;
 
 	@RequestMapping(value = "/teacher/add", method = RequestMethod.POST)
 	public String setTeacher(@ModelAttribute Teacher teacher) {

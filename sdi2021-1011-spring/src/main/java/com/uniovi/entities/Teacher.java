@@ -1,7 +1,12 @@
 package com.uniovi.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Teacher {
 	
+	@Id
 	private String DNI; 
 	private String nombre; 
 	private String apellidos; 
