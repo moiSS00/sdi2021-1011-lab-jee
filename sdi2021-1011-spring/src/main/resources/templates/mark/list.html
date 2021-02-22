@@ -9,8 +9,8 @@
 	<nav th:replace="fragments/nav" />
 
 	<div class="container">
-		<h2>Notas</h2>
-		<p>Las notas que actualmente figuran en el sistema son las
+		<h2 th:text="#{listMarks.message}">Notas</h2>
+		<p th:text="#{listMarks.detail.message}">Las notas que actualmente figuran en el sistema son las
 			siguientes:</p>
 		<button type="button" id="updateButton" class="btn btn-default">Actualizar</button>
 		<script>
@@ -24,8 +24,8 @@
 				<thead>
 					<tr>
 						<th class="col-md-1">id</th>
-						<th>Descripción</th>
-						<th>Puntuación</th>
+						<th th:text="#{addMark.form.2message}">Descripción</th>
+						<th th:text="#{addMark.form.3message}">Puntuación</th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>
 						<th class="col-md-1"></th>

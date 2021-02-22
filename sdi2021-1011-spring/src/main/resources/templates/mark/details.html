@@ -7,7 +7,7 @@
 	<nav th:replace="fragments/nav" />
 
 	<div class="container">
-		<h2>Detalles de la nota</h2>
+		<h2 th:text="#{listMarks.message}">Detalles de la nota</h2>
 		
 		<div class="panel panel-default">
 			<div class="panel-heading">DNI</div>
@@ -15,13 +15,13 @@
 		</div>
 		
 		<div class="panel panel-default">
-			<div class="panel-heading">Descripción</div>
+			<div class="panel-heading" th:text="#{addMark.form.2message}">Descripción</div>
 			<div class="panel-body" th:text="${mark.description}">
 				Ejercicio 1</div>
 		</div>
 		
 		<div class="panel panel-default">
-			<div class="panel-heading">Puntuación</div>
+			<div class="panel-heading" th:text="#{addMark.form.3message}">Puntuación</div>
 			<div class="panel-body" th:text="${mark.score}">100</div>
 		</div>
 		
