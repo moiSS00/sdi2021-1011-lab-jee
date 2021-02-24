@@ -34,9 +34,6 @@ public class MarksService {
 			consultedList = new HashSet<Mark>();
 		}
 		Mark obtainedmark = marksRepository.findById(id).get();
-		if(consultedList.contains(obtainedmark)) {
-			System.out.println("Ya está la nota en la lista: " + obtainedmark.getId()); 
-		}
 		consultedList.add(obtainedmark);
 		httpSession.setAttribute("consultedList", consultedList);
 		return obtainedmark;
