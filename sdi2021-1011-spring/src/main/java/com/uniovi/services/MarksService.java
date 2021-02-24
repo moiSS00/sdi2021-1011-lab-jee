@@ -30,6 +30,7 @@ public class MarksService {
 		return marks;
 	}
 
+	//SDI-2021-1011-4.1-Sesión (Corrección nombre commit)
 	public Mark getMark(Long id) {
 		Set<Mark> consultedList = (Set<Mark>) httpSession.getAttribute("consultedList");
 		if (consultedList == null) {
