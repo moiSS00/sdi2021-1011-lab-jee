@@ -1,6 +1,7 @@
 package com.uniovi.services;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,13 @@ public class UsersService {
 
 	public void deleteUser(Long id) {
 		usersRepository.deleteById(id);
+	}
+
+	public List<User> searchMarksByDescriptionAndNameForUser(String searchText) {
+		List<User> marks = new LinkedList<User>();
+		searchText = "%" + searchText + "%";
+		marks = usersRepository.searchByNameAndLastName(searchText); 
+		return marks;
 	}
 
 }

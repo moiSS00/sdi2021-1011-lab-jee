@@ -1,5 +1,8 @@
 package com.uniovi.controllers;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,13 +28,19 @@ public class UsersController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
-	
+
 	@Autowired
 	private RolesService rolesService;
 
 	@RequestMapping("/user/list")
-	public String getListado(Model model) {
-		model.addAttribute("usersList", usersService.getUsers());
+	public String getListado(Model model, @RequestParam(value = "", required = false) String searchText) {
+		List<User> users = new LinkedList<User>(); 
+		if (searchText != null && !searchText.isEmpty()) {
+			users = usersService.searchMarksByDescriptionAndNameForUser(searchText); 
+		} else {
+			users = usersService.getUsers(); 
+		}
+		model.addAttribute("usersList", users);
 		return "user/list";
 	}
 
@@ -68,7 +77,7 @@ public class UsersController {
 
 	@RequestMapping(value = "/user/edit/{id}", method = RequestMethod.POST)
 	public String setEdit(Model model, @PathVariable Long id, @ModelAttribute User user) {
-		User original = usersService.getUser(id); 
+		User original = usersService.getUser(id);
 		original.setName(user.getName());
 		original.setLastName(user.getLastName());
 		usersService.addUser(original);
@@ -84,8 +93,8 @@ public class UsersController {
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signup(@Validated User user, BindingResult result) {
 		signUpFormValidator.validate(user, result);
-		if(result.hasErrors()) {
-			return "signup"; 
+		if (result.hasErrors()) {
+			return "signup";
 		}
 		user.setRole(rolesService.getRoles()[0]);
 		usersService.addUser(user);
@@ -106,7 +115,7 @@ public class UsersController {
 		model.addAttribute("markList", activeUser.getMarks());
 		return "home";
 	}
-	
+
 	@RequestMapping("/user/list/update")
 	public String updateList(Model model) {
 		model.addAttribute("usersList", usersService.getUsers());
