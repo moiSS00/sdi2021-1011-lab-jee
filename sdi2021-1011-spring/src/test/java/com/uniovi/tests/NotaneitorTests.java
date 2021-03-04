@@ -141,7 +141,7 @@ public class NotaneitorTests {
 		PO_RegisterView.checkKey(driver, "Error.signup.passwordConfirm.coincidence", PO_Properties.getSPANISH());
 		
 		// Rellenamos el formulario.
-		PO_RegisterView.fillForm(driver, "99999990B", "Josefo", "Per", "77777", "77777");
+		PO_RegisterView.fillForm(driver, "99999990B", "Antonio", "Perez", "77777", "77777");
 	}
 
 }
