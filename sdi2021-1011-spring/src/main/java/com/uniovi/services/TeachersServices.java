@@ -1,5 +1,8 @@
 package com.uniovi.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,12 @@ public class TeachersServices {
 
 	public Teacher getTeacher(String dni) {
 		return teachersRepository.findById(dni).get(); 
+	}
+	
+	public List<Teacher> getTeachers() {
+		List<Teacher> users = new ArrayList<Teacher>();
+		teachersRepository.findAll().forEach(users::add);
+		return users;
 	}
 	
 	

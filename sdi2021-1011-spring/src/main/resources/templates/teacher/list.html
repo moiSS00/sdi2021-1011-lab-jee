@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments/head" />
+<body>
+	<!-- Barra de Navegación superior -->
+	<nav th:replace="fragments/nav" />
+	<div class="container">
+		<h2>Profesores</h2>
+		<p>Los profesores que actualmente figuran en el sistema son los
+			siguientes:</p>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>DNI</th>
+						<th>Nombre</th>
+						<th>Apellidos</th>
+						<th>Categoría</th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="teacher : ${teachersList}">
+						<td th:text="${teacher.DNI}">71888888X</td>
+						<td th:text="${teacher.nombre}">Nombre del alumno</td>
+						<td th:text="${teacher.apellidos}">Apellidos del alumno</td>
+						<td th:text="${teacher.categoria}">Categoría</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<footer th:replace="fragments/footer" />
+</body>
+</html>

@@ -1,5 +1,7 @@
 package com.uniovi.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.After;
@@ -68,79 +70,102 @@ public class NotaneitorComplementariosTests {
 	// PR01. Añadimos un profesor de forma normal
 	@Test
 	public void PR01() {
-		
-		//Nos logeamos como administrador
+
+		// Nos logeamos como administrador
 		PO_NavView.loginAs(driver, "99999988F", "123456");
-		
-		//Vamos al formulario para agregar a un usuario
+
+		// Vamos al formulario para agregar a un usuario
 		List<WebElement> elementos = PO_View.checkElement(driver, "id", "users-menu");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "@href", "/user/add");
 		elementos.get(0).click();
-		
-		//Agregamos un usuario con rol Profesor. 
+
+		// Agregamos un usuario con rol Profesor.
 		PO_AddUserView.fillForm(driver, 1, "prueba1", "prueba2", "prueba3", "prueba4");
-		
-		//Volvemos pagina principal 
+
+		// Volvemos pagina principal
 		elementos = PO_View.checkElement(driver, "free", "//*[@id=\"myNavbar\"]/ul[1]/li[1]/a");
 		elementos.get(0).click();
-		
-		//Vamos a la lista de usuarios
+
+		// Vamos a la lista de usuarios
 		elementos = PO_View.checkElement(driver, "id", "users-menu");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, "free", "//*[@id=\"users-menu\"]/ul/li[2]/a");
 		elementos.get(0).click();
-		
-		//Paginacion 
+
+		// Paginacion
 		elementos = PO_View.checkElement(driver, "free", "//a[contains(@class, 'page-link')]");
-		//Nos vamos a la última página
+		// Nos vamos a la última página
 		elementos.get(3).click();
 		elementos = PO_View.checkElement(driver, "text", "prueba1");
-		
-		//Nos desconectamos 
+
+		// Nos desconectamos
 		elementos = PO_View.checkElement(driver, "free", "//*[@id=\"myNavbar\"]/ul[2]/li[2]/a");
 		elementos.get(0).click();
 	}
-	
+
 	// PR02. Añadimos un profesor con errores
-		@Test
-		public void PR02() {
-			
-			//Nos logeamos como administrador
-			PO_NavView.loginAs(driver, "99999988F", "123456");
-			
-			//Vamos al formulario para agregar a un usuario
-			List<WebElement> elementos = PO_View.checkElement(driver, "id", "users-menu");
-			elementos.get(0).click();
-			elementos = PO_View.checkElement(driver, "@href", "/user/add");
-			elementos.get(0).click();
-			
-			//Agregamos un usuario con rol Profesor. 
-			PO_AddUserView.fillForm(driver, 1, "1", "1", "1", "1");
-			PO_RegisterView.checkElement(driver, "text", "El dni debe de tener una longitu mínima de 23 carácteres.");	
-			PO_RegisterView.checkElement(driver, "text", "El nombre debe de tener una longitu mínima de 23 carácteres.");	
-			PO_RegisterView.checkElement(driver, "text", "El apellido debe de tener una longitu mínima de 23 carácteres.");	
-			PO_RegisterView.checkElement(driver, "text", "La contraseña debe de tener una longitu mínima de 23 carácteres.");	
-		
-			
-			//Nos desconectamos 
-			elementos = PO_View.checkElement(driver, "free", "//*[@id=\"myNavbar\"]/ul[2]/li[2]/a");
-			elementos.get(0).click();
-		}
-		
-		// PR03. Intentamos acceder con un rol equivocado 
-		@Test
-		public void PR03() {
-			
-			//Nos logeamos como administrador
-			PO_NavView.loginAs(driver, "99999990A", "123456");
-			
-			//Vamos al formulario para agregar a un usuario
-			SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Gestión de usuarios", PO_View.getTimeout());
-					
-			//Nos desconectamos 
-			List<WebElement> elementos = PO_View.checkElement(driver, "free", "//*[@id=\"myNavbar\"]/ul[2]/li[2]/a");
-			elementos.get(0).click();
-		}
+	@Test
+	public void PR02() {
+
+		// Nos logeamos como administrador
+		PO_NavView.loginAs(driver, "99999988F", "123456");
+
+		// Vamos al formulario para agregar a un usuario
+		List<WebElement> elementos = PO_View.checkElement(driver, "id", "users-menu");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "@href", "/user/add");
+		elementos.get(0).click();
+
+		// Agregamos un usuario con rol Profesor.
+		PO_AddUserView.fillForm(driver, 1, "1", "1", "1", "1");
+		PO_RegisterView.checkElement(driver, "text", "El dni debe de tener una longitu mínima de 23 carácteres.");
+		PO_RegisterView.checkElement(driver, "text", "El nombre debe de tener una longitu mínima de 23 carácteres.");
+		PO_RegisterView.checkElement(driver, "text", "El apellido debe de tener una longitu mínima de 23 carácteres.");
+		PO_RegisterView.checkElement(driver, "text",
+				"La contraseña debe de tener una longitu mínima de 23 carácteres.");
+
+		// Nos desconectamos
+		elementos = PO_View.checkElement(driver, "free", "//*[@id=\"myNavbar\"]/ul[2]/li[2]/a");
+		elementos.get(0).click();
+	}
+
+	// PR03. Intentamos acceder con un rol equivocado
+	@Test
+	public void PR03() {
+
+		// Nos logeamos como administrador
+		PO_NavView.loginAs(driver, "99999990A", "123456");
+
+		// Vamos al formulario para agregar a un usuario
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Gestión de usuarios", PO_View.getTimeout());
+
+		// Nos desconectamos
+		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//*[@id=\"myNavbar\"]/ul[2]/li[2]/a");
+		elementos.get(0).click();
+	}
+
+	// PR04. Comprobamos que al listar los profesores, se muestren todos los
+	// de nuestro sistema
+	@Test
+	public void PR04() {
+
+		// Nos logeamos como administrador
+		PO_NavView.loginAs(driver, "99999988F", "123456");
+
+		// Accedenmos al listado de profesores
+		List<WebElement> elementos = PO_View.checkElement(driver, "id", "teachers-menu");
+		elementos.get(0).click();
+		elementos = PO_View.checkElement(driver, "@href", "/teacher/list");
+		elementos.get(0).click();
+
+		// Comprobamos que estan los 6 profesores del sistema
+		elementos = SeleniumUtils.EsperaCargaPagina(driver, "free", "//tbody/tr", PO_View.getTimeout());
+		assertTrue(elementos.size() == 6);
+
+		// Nos desconectamos
+		elementos = PO_View.checkElement(driver, "free", "//*[@id=\"myNavbar\"]/ul[2]/li[2]/a");
+		elementos.get(0).click();
+	}
 
 }
