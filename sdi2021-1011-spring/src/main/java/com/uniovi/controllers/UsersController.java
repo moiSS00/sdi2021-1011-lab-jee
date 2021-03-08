@@ -22,6 +22,7 @@ import com.uniovi.entities.User;
 import com.uniovi.services.RolesService;
 import com.uniovi.services.SecurityService;
 import com.uniovi.services.UsersService;
+import com.uniovi.validators.AddUserValidator;
 import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
@@ -35,6 +36,9 @@ public class UsersController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
+	
+	@Autowired
+	private AddUserValidator addUserValidator;
 
 	@Autowired
 	private RolesService rolesService;
@@ -56,11 +60,16 @@ public class UsersController {
 	@RequestMapping(value = "/user/add")
 	public String getUser(Model model) {
 		model.addAttribute("rolesList", rolesService.getRoles());
+		model.addAttribute("user", new User()); 
 		return "user/add";
 	}
 
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
-	public String setUser(@ModelAttribute User user) {
+	public String setUser(@Validated User user, BindingResult result) {
+		addUserValidator.validate(user, result);
+		if (result.hasErrors()) {
+			return "user/add";
+		}
 		usersService.addUser(user);
 		return "redirect:/user/list";
 	}
